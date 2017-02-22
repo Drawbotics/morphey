@@ -9,7 +9,7 @@ function setIn(obj, key, value) {
 }
 
 
-export function translate(obj, translations) {
+export default function keyswitch(obj, translations) {
   const finalTranslations = typeof translations === 'function' ? translations(obj) : translations;
   return Object.keys(finalTranslations).reduce((result, k) => {
     const originalKey = finalTranslations[k];
