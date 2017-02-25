@@ -99,3 +99,11 @@ const final = Object.keys(initialObject).reduce((memo, k) => {
 
 And all of this without taking into account that every developer in the team can do this differently and the need to repeat this
 code everytime someone is going to change the shape of an object.
+
+
+## API
+
+
+## LICENSE
+
+MIT. See [LICENSE](LICENSE) for details.
