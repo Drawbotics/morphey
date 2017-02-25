@@ -1,6 +1,6 @@
 {
   "name": "morphey",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A small utility to transform keys and values of an object using a template.",
   "main": "lib/index.js",
   "repository": "git@github.com:larsbs/morphey.git",

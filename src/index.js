@@ -24,6 +24,10 @@ export default function morphey(obj, translations) {
       const value = get(obj, fromKey);
       return setIn(result, k, (typeof transform === 'function') ? transform(value) : value);
     }
+    else if (originalKey.hasOwnProperty('value')) {
+      const { value } = originalKey;
+      return setIn(result, k, value());
+    }
     else {
       throw new Error('Only "strings" and "objects" can be used as translation values');
     }
