@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import keyswitch from '../src/index';
+import morphey from '../src/index';
 
 
 describe('TEST', function () {
-  describe('keyswitch(obj, translations)', function () {
+  describe('morphey(obj, translations)', function () {
     describe('when translations is an object', function () {
       const originalObject = {
         foo: 'bar',
@@ -27,11 +27,11 @@ describe('TEST', function () {
       };
       let finalObject;
       before(function () {
-        finalObject = keyswitch(originalObject, translations);
+        finalObject = morphey(originalObject, translations);
       });
       it('should translate the name of the old key when the new name is a string', function () {
         expect(finalObject.baz).to.exist;
-        expect(finalObject.baz).to.equal('bar'),
+        expect(finalObject.baz).to.equal('bar');
       });
       it('should translate the name of the old key when the new name is inside an object with the prop `fromKey`', function () {
         expect(finalObject.fromObject).to.exist;
@@ -43,9 +43,9 @@ describe('TEST', function () {
       });
       it('should allow dot notation to be used when specifiying the old key name', function () {
         expect(finalObject.deepX).to.exist;
-        expect(finalObject.deepX).to.equal(12);
+        expect(finalObject.deepX).to.equal(13);
         expect(finalObject.deepY).to.exist;
-        expect(finalObject.deepY).to.equal(13 * 10);
+        expect(finalObject.deepY).to.equal(12 * 10);
       });
       it('should allow to define nested properties on the final object using dot notation in the new names', function () {
         expect(finalObject.lastProps).to.exist;
@@ -68,7 +68,7 @@ describe('TEST', function () {
         lastProp: 'test',
       };
       const translations = (obj) => ({
-        baz: obj.foo,
+        baz: { fromKey: 'foo', transform: () => obj.foo },
         fromObject: { fromKey: 'from_object' },
         withDefault: { fromKey: 'this_is_null', transform: (v) => v || 'defaultValue' },
         deepX: 'deepProp.x',
@@ -78,11 +78,11 @@ describe('TEST', function () {
       });
       let finalObject;
       before(function () {
-        finalObject = keyswitch(originalObject, translations);
+        finalObject = morphey(originalObject, translations);
       });
       it('should translate the name of the old key when the new name is a string', function () {
         expect(finalObject.baz).to.exist;
-        expect(finalObject.baz).to.equal('bar'),
+        expect(finalObject.baz).to.equal('bar');
       });
       it('should translate the name of the old key when the new name is inside an object with the prop `fromKey`', function () {
         expect(finalObject.fromObject).to.exist;
@@ -94,9 +94,9 @@ describe('TEST', function () {
       });
       it('should allow dot notation to be used when specifiying the old key name', function () {
         expect(finalObject.deepX).to.exist;
-        expect(finalObject.deepX).to.equal(12);
+        expect(finalObject.deepX).to.equal(13);
         expect(finalObject.deepY).to.exist;
-        expect(finalObject.deepY).to.equal(13 * 10);
+        expect(finalObject.deepY).to.equal(12 * 10);
       });
       it('should allow to define nested properties on the final object using dot notation in the new names', function () {
         expect(finalObject.lastProps).to.exist;

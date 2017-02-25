@@ -1,9 +1,9 @@
 {
-  "name": "morphy",
+  "name": "morphey",
   "version": "0.1.0",
   "description": "A small utility to transform keys and values of an object using a template.",
   "main": "lib/index.js",
-  "repository": "git@github.com:larsbs/keyswitch.git",
+  "repository": "git@github.com:larsbs/morphey.git",
   "author": "Lorenzo Ruiz <lars.bs@hotmail.com>",
   "license": "MIT",
   "files": [
@@ -15,7 +15,8 @@
     "clean": "rimraf dist/",
     "build:umd": "webpack --progress --config webpack.config.js",
     "build:commonjs": "babel src --out-dir lib/",
-    "build": "npm run clean && npm run build:umd && npm run build:commonjs"
+    "build": "npm run clean && npm run build:umd && npm run build:commonjs",
+    "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -23,6 +24,8 @@
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
     "rimraf": "^2.6.1",
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^2.3.0"
