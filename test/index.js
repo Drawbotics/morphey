@@ -24,6 +24,7 @@ describe('TEST', function () {
         deepY: { fromKey: 'deepProp.y', transform: (v) => v * 10 },
         'lastProps.first': 'onePropMore',
         'lastProps.second': 'lastProp',
+        computed: { value: () => 'computedValue' }
       };
       let finalObject;
       before(function () {
@@ -53,6 +54,10 @@ describe('TEST', function () {
         expect(finalObject.lastProps.second).to.exist;
         expect(finalObject.lastProps.first).to.equal('test');
         expect(finalObject.lastProps.second).to.equal('test');
+      });
+      it('should allow to have computed values when using `value` in the transformations', function () {
+        expect(finalObject.computed).to.exist;
+        expect(finalObject.computed).to.equal('computedValue');
       });
     });
     describe('when translations is a function', function () {
@@ -75,6 +80,7 @@ describe('TEST', function () {
         deepY: { fromKey: 'deepProp.y', transform: (v) => v * 10 },
         'lastProps.first': 'onePropMore',
         'lastProps.second': 'lastProp',
+        computed: { value: () => 'computedValue' }
       });
       let finalObject;
       before(function () {
@@ -104,6 +110,10 @@ describe('TEST', function () {
         expect(finalObject.lastProps.second).to.exist;
         expect(finalObject.lastProps.first).to.equal('test');
         expect(finalObject.lastProps.second).to.equal('test');
+      });
+      it('should allow to have computed values when using `value` in the transformations', function () {
+        expect(finalObject.computed).to.exist;
+        expect(finalObject.computed).to.equal('computedValue');
       });
     });
   });
