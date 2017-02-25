@@ -1,5 +1,5 @@
 {
-  "name": "keyswitch",
+  "name": "morphy",
   "version": "0.1.0",
   "description": "A small utility to transform keys and values of an object using a template.",
   "main": "src/index.js",
