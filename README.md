@@ -104,6 +104,6 @@ code everytime someone is going to change the shape of an object.
 ## API
 
 
-## LICENSE
+## License
 
 MIT. See [LICENSE](LICENSE) for details.
