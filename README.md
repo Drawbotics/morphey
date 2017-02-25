@@ -2,6 +2,9 @@
 
 A small utility to change keys and values of an object according to another object that describes the transformations. It's important to notice that this function **doesn't mutate the original object** and returns a new one instead.
 
+[![npm version](https://img.shields.io/npm/v/morphey.svg?style=flat-square)](https://www.npmjs.com/package/morphey)
+[![build status](https://img.shields.io/travis/larsbs/morphey/master.svg?style=flat-square)](https://travis-ci.org/larsbs/morphey)
+
 
 ## Installation
 
