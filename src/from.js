@@ -21,6 +21,27 @@ export class From {
   toString() {
     return new From(this.fromKey, compose(this.transform, utils.toString));
   }
+
+  toNumber() {
+    return new From(this.fromKey, compose(this.transform, utils.toNumber));
+  }
+
+  toInteger() {
+    return new From(this.fromKey, compose(this.transform, utils.toInteger));
+  }
+
+  toFloat() {
+    return new From(this.fromKey, compose(this.transform, utils.toFloat));
+  }
+
+  toBoolean() {
+    return new From(this.fromKey, compose(this.transform, utils.toBoolean));
+  }
+
+  mapFrom(mapping) {
+    const mapFrom = utils.mapFrom(mapping);
+    return new From(this.fromKey, compose(this.transform, mapFrom));
+  }
 }
 
 
