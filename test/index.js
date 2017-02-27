@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import morphey from '../src/index';
 
 
-describe('TEST', function () {
+describe('MAIN', function () {
   describe('morphey(obj, translations)', function () {
     describe('when translations is an object', function () {
       const originalObject = {
