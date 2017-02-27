@@ -7,6 +7,9 @@ export function defaultTo(defaultValue) {
 
 
 export function toString(value) {
+  if ( ! value) {
+    return '';
+  }
   return value.toString ? value.toString() : String(value);
 }
 
