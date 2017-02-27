@@ -10,7 +10,7 @@ function setIn(obj, key, value) {
 }
 
 
-export from from './from';
+export fromKey from './from';
 
 
 export default function morphey(obj, translations) {

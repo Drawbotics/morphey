@@ -45,6 +45,6 @@ export class From {
 }
 
 
-export default function from(fromKey) {
+export default function fromKey(fromKey) {
   return new From(fromKey);
 }
