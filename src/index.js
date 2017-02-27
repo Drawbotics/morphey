@@ -2,10 +2,15 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 
+import From from './from';
+
 
 function setIn(obj, key, value) {
   return set(cloneDeep(obj), key, value);
 }
+
+
+export from from './from';
 
 
 export default function morphey(obj, translations) {
@@ -27,6 +32,9 @@ export default function morphey(obj, translations) {
     else if (originalKey.hasOwnProperty('value')) {
       const { value } = originalKey;
       return setIn(result, k, value());
+    }
+    else if (originalKey instanceof From) {
+      console.log('test');
     }
     else {
       throw new Error('Only "strings" and "objects" can be used as translation values');
