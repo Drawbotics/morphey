@@ -14,8 +14,7 @@ export class From {
   }
 
   defaultTo(defaultValue) {
-    const defaultTo = utils.defaultTo(defaultValue);
-    return new From(this.fromKey, compose(this.transform, defaultTo));
+    return new From(this.fromKey, compose(this.transform, utils.defaultTo(defaultValue)));
   }
 
   toString() {
@@ -39,8 +38,11 @@ export class From {
   }
 
   mapFrom(mapping) {
-    const mapFrom = utils.mapFrom(mapping);
-    return new From(this.fromKey, compose(this.transform, mapFrom));
+    return new From(this.fromKey, compose(this.transform, utils.mapFrom(mapping)));
+  }
+
+  using(fn) {
+    return new From(this.fromKey, compose(this.transform, utils.using(fn)))
   }
 }
 

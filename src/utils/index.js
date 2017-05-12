@@ -57,3 +57,11 @@ export function mapFrom(mapping) {
     return mapping[value];
   };
 }
+
+
+export function using(fn) {
+  if ( ! fn) {
+    throw new Error('The function to use cannot be null.');
+  }
+  return (value) => fn(value);
+}
