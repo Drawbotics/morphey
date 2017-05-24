@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { defaultTo, toString, toNumber, toInteger, toFloat, toBoolean, mapFrom } from '../../src/utils';
+import { defaultTo, toString, toNumber, toInteger, toFloat, toBoolean, mapFrom, using } from '../../src/utils';
 
 
 describe('UTILS', function () {
@@ -79,6 +79,14 @@ describe('UTILS', function () {
         expect(mapFrom({ 1: 'mapped value' })(1)).to.equal('mapped value');
         expect(mapFrom({ [false]: 'mapped value' })(false)).to.equal('mapped value');
       });
+    });
+  });
+  describe('using(fn)', function () {
+    it('should return a function', function () {
+      expect(using(() => ({}))).to.be.a('function');
+    });
+    it('should apply the function `fn` to the value', function () {
+      expect(using((v) => v * 2)(2)).to.equal(4);
     });
   });
 });

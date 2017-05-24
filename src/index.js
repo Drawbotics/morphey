@@ -2,8 +2,6 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 
-import From from './from';
-
 
 function setIn(obj, key, value) {
   return set(cloneDeep(obj), key, value);
@@ -11,6 +9,8 @@ function setIn(obj, key, value) {
 
 
 export fromKey from './from';
+
+export fromValue from './from-value';
 
 
 export default function morphey(obj, translations) {
@@ -24,7 +24,10 @@ export default function morphey(obj, translations) {
       const value = get(obj, originalKey);
       return setIn(result, k, value);
     }
-    else if (originalKey.hasOwnProperty('fromKey')) {  // newKey: { fromKey: 'oldKey' }
+    else if (originalKey.isFromValue) {
+      return setIn(result, k, originalKey.value);
+    }
+    else if (originalKey.isFromKey || originalKey.hasOwnProperty('fromKey')) {  // newKey: { fromKey: 'oldKey' }
       const { fromKey, transform } = originalKey;
       const value = get(obj, fromKey);
       return setIn(result, k, (typeof transform === 'function') ? transform(value) : value);
@@ -33,11 +36,8 @@ export default function morphey(obj, translations) {
       const { value } = originalKey;
       return setIn(result, k, value());
     }
-    else if (originalKey instanceof From) {
-      console.log('test');
-    }
     else {
-      throw new Error('Only "strings" and "objects" can be used as translation values');
+      throw new Error(`Only "strings" and "objects" can be used as translation values. Received ${originalKey} for key ${k}`);
     }
   }, {});
 };
