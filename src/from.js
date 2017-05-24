@@ -8,7 +8,7 @@ function compose(f, g) {
 
 export class From {
   constructor(fromKey, transform=(v) => v) {
-    this.isFrom = true;
+    this.isFromKey = true;
     this.fromKey = fromKey;
     this.transform = transform;
   }
