@@ -17,7 +17,7 @@ $ yarn add morphey
 Or, if you're an old school guy, using npm:
 
 ```bash
-$ npm install morphey
+$ npm install --save morphey
 ```
 
 
@@ -26,17 +26,17 @@ $ npm install morphey
 A basic usage example:
 
 ```js
-import morphey from 'morphey';  // or const morphey = require('morphey');
+import morphey, { fromKey, fromValue } from 'morphey';  // or const morphey = require('morphey');
 
 
 // translations can be a function or an object. If it's a function, the original
 // object would be passed as the first arg.
 const translations = (obj) => {
-  foo: 'bar',
-  test: { fromKey: 'old', transform: (v) => v * 2 },
-  'deep.x': 'deepX',
-  'deep.y': 'deep.deep.Y',
-  computed: { value: () => obj.deepX * obj.deep.deep.Y },
+  foo: fromKey('bar'),
+  test: fromKey('old').using((v) => v * 2),
+  'deep.x': fromKey('deepX'),
+  'deep.y': fromKey('deep.deep.Y'),
+  computed: fromValue(obj.deepX * obj.deep.deep.Y),
 };
 const initialObject = {
   bar: 123,
@@ -70,12 +70,12 @@ But, what's the point of having those transformations in a description object? W
 Basically, it's easier to understand this:
 
 ```js
-const translations = {
-  foo: 'bar',
-  test: { fromKey: 'old', transform: (v) => v * 2 },
-  'deep.x': 'deepX',
-  'deep.y': 'deep.deep.Y',
-}
+const translations = (obj) => {
+  foo: fromKey('bar'),
+  test: fromKey('old').using((v) => v * 2),
+  'deep.x': fromKey('deepX'),
+  'deep.y': fromKey('deep.deep.Y'),
+};
 const final = morphey(initialObject, translations);
 ```
 
@@ -110,18 +110,19 @@ And all of this without taking into account that every developer in the team can
   - `morphs` *Object|Function*: The transformations to apply to the base object for obtaining the new object.
  - **Returns**
   - *Object*: A new object resulting of applying the transformations to the base object.
-  
-Transformations descriptions are objects with keys as the new names of the properties of the resulting object and values that describe where to find the data in the original object. This data finding process can be specified using two types of values.
 
-##### Plain strings
+Transformations descriptions are objects with keys as the new names of the properties of the resulting object and values that describe where to find the data in the original object. This data finding process can be specified using two methods.
 
-If a plain string is used, then, the morphey would look for the data in the key path of the original object indicated by the provided string. For instance, with `const morphs = { newKey: 'oldKey.path' };` morphey will try to find the data in `originalObject.oldKey.path`
 
-##### Objects
+##### `fromKey`
 
-If an object is specified, then, according to the properties inside the object, morphey will perform a different operation. If an object with a property called `fromKey` is used, morphey will try to find the data in the key path indicated by `fromKey`. A special config option called `transform` can also be used. This has to be a function that takes a single argument, which is the value in the original object, and has to produce another value which will be used in the new object instead.
+> In progress
 
-An object with a property called `value` can also be used. This property has to be a function that takes zero arguments and has to return a vlaue. In this case, morphey will not try to find data in the original object for the new key and will just use the returned value as the value of the new key.
+
+##### `fromValue`
+
+> In progress
+
 
 ## License
 
