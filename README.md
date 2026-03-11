@@ -2,23 +2,25 @@
 
 A small utility to change keys and values of an object according to another object that describes the transformations. It's important to notice that this function **doesn't mutate the original object** and returns a new one instead.
 
-[![npm version](https://img.shields.io/npm/v/morphey.svg?style=flat-square)](https://www.npmjs.com/package/morphey)
-[![build status](https://img.shields.io/travis/larsbs/morphey/master.svg?style=flat-square)](https://travis-ci.org/larsbs/morphey)
-
-
 ## Installation
 
 Install it using yarn:
 
 ```bash
-$ yarn add morphey
+$ yarn add @drawbotics/morphey
 ```
 
-Or, if you're an old school guy, using npm:
+Or using npm:
 
 ```bash
-$ npm install --save morphey
+$ npm install --save @drawbotics/morphey
 ```
+
+> **Note:** This package is published on [GitHub Packages](https://github.com/Drawbotics/morphey/packages). You may need to configure your `.npmrc` to use the GitHub registry for the `@drawbotics` scope:
+>
+> ```
+> @drawbotics:registry=https://npm.pkg.github.com
+> ```
 
 
 ## Example
@@ -26,18 +28,18 @@ $ npm install --save morphey
 A basic usage example:
 
 ```js
-import morphey, { fromKey, fromValue } from 'morphey';  // or const morphey = require('morphey');
+import morphey, { fromKey, fromValue } from '@drawbotics/morphey';
 
 
 // translations can be a function or an object. If it's a function, the original
 // object would be passed as the first arg.
-const translations = (obj) => {
+const translations = (obj) => ({
   foo: fromKey('bar'),
   test: fromKey('old').using((v) => v * 2),
   'deep.x': fromKey('deepX'),
   'deep.y': fromKey('deep.deep.Y'),
   computed: fromValue(obj.deepX * obj.deep.deep.Y),
-};
+});
 const initialObject = {
   bar: 123,
   old: 10,
@@ -70,12 +72,12 @@ But, what's the point of having those transformations in a description object? W
 Basically, it's easier to understand this:
 
 ```js
-const translations = (obj) => {
+const translations = (obj) => ({
   foo: fromKey('bar'),
   test: fromKey('old').using((v) => v * 2),
   'deep.x': fromKey('deepX'),
   'deep.y': fromKey('deep.deep.Y'),
-};
+});
 const final = morphey(initialObject, translations);
 ```
 
@@ -97,6 +99,11 @@ const final = Object.keys(initialObject).reduce((memo, k) => {
 ```
 
 And all of this without taking into account that every developer in the team can have his own way of doing this or the need to repeat this code everytime someone is going to change the shape of an object.
+
+
+## Security
+
+Morphey includes protection against prototype pollution attacks. Translation keys containing `__proto__`, `constructor`, or `prototype` path segments are rejected with an error.
 
 
 ## API

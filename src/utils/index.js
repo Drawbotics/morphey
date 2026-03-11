@@ -26,7 +26,7 @@ export function toInteger(value) {
   if (isNaN(value)) {
     throw new Error(`Cannot transform ${value} into an integer.`);
   }
-  return parseInt(value);
+  return parseInt(value, 10);
 }
 
 
@@ -51,7 +51,7 @@ export function mapFrom(mapping) {
     throw new Error('The mapping cannot be null.');
   }
   return (value) => {
-    if ( ! mapping[value]) {
+    if ( ! mapping.hasOwnProperty(value)) {
       throw new Error(`Cannot find value for ${value} in mapping.`);
     }
     return mapping[value];

@@ -3,7 +3,16 @@ import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 
 
+function isSafePath(key) {
+  const parts = Array.isArray(key) ? key : String(key).split('.');
+  return parts.every((p) => p !== '__proto__' && p !== 'constructor' && p !== 'prototype');
+}
+
+
 function setIn(obj, key, value) {
+  if ( ! isSafePath(key)) {
+    throw new Error(`Unsafe key path: "${key}"`);
+  }
   return set(cloneDeep(obj), key, value);
 }
 
