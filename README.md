@@ -101,6 +101,38 @@ const final = Object.keys(initialObject).reduce((memo, k) => {
 And all of this without taking into account that every developer in the team can have his own way of doing this or the need to repeat this code everytime someone is going to change the shape of an object.
 
 
+## Migrating from `morphey` to `@drawbotics/morphey`
+
+This package was previously published as `morphey` on npm. Version 1.5.0 introduces the following breaking changes:
+
+### Package renamed (action required)
+
+The package is now scoped under `@drawbotics` and published to GitHub Packages. All consumers must:
+
+1. Add the GitHub Packages registry to `.npmrc`:
+   ```
+   @drawbotics:registry=https://npm.pkg.github.com
+   ```
+2. Update `package.json` dependency from `"morphey"` to `"@drawbotics/morphey"`
+3. Update all import statements:
+   ```diff
+   - import morphey, { fromKey, fromValue } from 'morphey';
+   + import morphey, { fromKey, fromValue } from '@drawbotics/morphey';
+   ```
+
+### Unsafe key paths now throw
+
+Translation keys containing `__proto__`, `constructor`, or `prototype` path segments now throw an error instead of silently setting the value. This prevents prototype pollution attacks. Only affects code that was using these unsafe paths.
+
+### `mapFrom` correctly handles falsy values
+
+`mapFrom` now uses `hasOwnProperty` to check for key existence instead of a falsy check. Previously, valid falsy values like `0`, `""`, or `false` would incorrectly throw an error. Code that relied on the old throwing behavior for these values may need to be updated.
+
+### `toInteger` parsing fix
+
+`parseInt` is now called with an explicit radix of `10`. Previously, strings like `"010"` could be interpreted as octal (`8`) in legacy environments. They now always parse as decimal (`10`).
+
+
 ## Security
 
 Morphey includes protection against prototype pollution attacks. Translation keys containing `__proto__`, `constructor`, or `prototype` path segments are rejected with an error.
