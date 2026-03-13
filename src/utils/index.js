@@ -1,5 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
-
 
 export function defaultTo(defaultValue) {
   return (v) => ( ! v) ? defaultValue : v;

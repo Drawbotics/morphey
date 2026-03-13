@@ -1,16 +1,20 @@
-const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const webpackBaseConfig = require('./webpack.base.config');
 
 
 module.exports = Object.assign({}, webpackBaseConfig, {
+  mode: 'production',
   devtool: 'source-map',
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          sourceMap: true,
+        },
+      }),
+    ],
+  },
   plugins: [
     ...webpackBaseConfig.plugins,
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-    }),
   ],
 });

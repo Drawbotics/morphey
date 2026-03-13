@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 
 const rootDirs = [
@@ -33,7 +32,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [[ 'es2015', { modules: false } ], 'stage-0'],
+              presets: [['@babel/preset-env', { modules: false }]],
             },
           },
         ],
