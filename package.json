@@ -1,6 +1,6 @@
 {
   "name": "@drawbotics/morphey",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A small utility to transform keys and values of an object using a template.",
   "type": "module",
   "main": "lib/index.cjs",
