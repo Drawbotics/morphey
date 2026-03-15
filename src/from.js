@@ -1,4 +1,4 @@
-import * as utils from './utils';
+import * as utils from './utils/index.js';
 
 
 function compose(f, g) {

@@ -1,11 +1,48 @@
-import get from 'lodash/get';
-import set from 'lodash/set';
-import cloneDeep from 'lodash/cloneDeep';
+function parsePath(path) {
+  return Array.isArray(path) ? path : String(path).split('.');
+}
+
+
+function get(obj, path) {
+  const parts = parsePath(path);
+  let current = obj;
+  for (let i = 0; i < parts.length; i++) {
+    if (current == null) return undefined;
+    current = current[parts[i]];
+  }
+  return current;
+}
+
+
+function cloneDeep(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(cloneDeep);
+  const result = {};
+  const keys = Object.keys(obj);
+  for (let i = 0; i < keys.length; i++) {
+    result[keys[i]] = cloneDeep(obj[keys[i]]);
+  }
+  return result;
+}
+
+
+function set(obj, path, value) {
+  const parts = parsePath(path);
+  let current = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const part = parts[i];
+    if (current[part] == null || typeof current[part] !== 'object') {
+      current[part] = {};
+    }
+    current = current[part];
+  }
+  current[parts[parts.length - 1]] = value;
+  return obj;
+}
 
 
 function isSafePath(key) {
-  const parts = Array.isArray(key) ? key : String(key).split('.');
-  return parts.every((p) => p !== '__proto__' && p !== 'constructor' && p !== 'prototype');
+  return parsePath(key).every((p) => p !== '__proto__' && p !== 'constructor' && p !== 'prototype');
 }
 
 
@@ -17,9 +54,9 @@ function setIn(obj, key, value) {
 }
 
 
-export { default as fromKey } from './from';
+export { default as fromKey } from './from.js';
 
-export { default as fromValue } from './from-value';
+export { default as fromValue } from './from-value.js';
 
 
 export default function morphey(obj, translations) {

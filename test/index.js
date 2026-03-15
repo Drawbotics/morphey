@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import morphey from '../src/index';
+import morphey from '../src/index.js';
 
 
 describe('MAIN', function () {

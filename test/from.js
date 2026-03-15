@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import fromKey from '../src/from';
+import fromKey from '../src/from.js';
 
 
 describe('from', function () {

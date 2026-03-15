@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { defaultTo, toString, toNumber, toInteger, toFloat, toBoolean, mapFrom, using } from '../../src/utils';
+import { defaultTo, toString, toNumber, toInteger, toFloat, toBoolean, mapFrom, using } from '../../src/utils/index.js';
 
 
 describe('UTILS', function () {
